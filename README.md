@@ -6,7 +6,7 @@ under construction...
 ```
 Metacello new
   baseline: 'GFCanvas';
-  repository: 'github://garlic-flavor/CanvasOfPharo:main/repository';
+  repository: 'github://garlic-flavor/CanvasOfPharo/repository';
   load
 ```
 
