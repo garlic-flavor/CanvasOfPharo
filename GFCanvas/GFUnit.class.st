@@ -8,6 +8,9 @@ Class {
 		'dpi',
 		'pixel'
 	],
+	#classInstVars : [
+		'defaultDPI'
+	],
 	#category : #GFCanvas
 }
 
@@ -16,6 +19,11 @@ GFUnit class >> cm: centimeter [
 	^ self new
 		cm: centimeter;
 		yourself
+]
+
+{ #category : #accessing }
+GFUnit class >> defaultDPI [
+	^ defaultDPI ifNil: [ defaultDPI := 300 ]
 ]
 
 { #category : #'instance creation' }
@@ -35,14 +43,19 @@ GFUnit class >> mm: millimeter [
 { #category : #'as yet unclassified' }
 GFUnit class >> px: px [
 	^ self new
-		pixel: px;
+		px: px;
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
-GFUnit >> cm [
-	^ self mm * 0.1
-	
+{ #category : #accessing }
+GFUnit class >> resetDefaultDPI [
+	<script>
+	defaultDPI := nil
+]
+
+{ #category : #operations }
+GFUnit >> @ y [
+	^ Point x: self value y: y value
 ]
 
 { #category : #'as yet unclassified' }
@@ -64,18 +77,24 @@ GFUnit >> dpi: anObject [
 ]
 
 { #category : #'instance creation' }
-GFUnit >> in [
-	^ self px / self dpi
-]
-
-{ #category : #'instance creation' }
 GFUnit >> in: inch [
 	self px: inch * self dpi
 ]
 
 { #category : #'as yet unclassified' }
-GFUnit >> mm [
-	^ (self px * 25.4 / self dpi) asInteger
+GFUnit >> inCm [
+	^ self inMm * 0.1
+	
+]
+
+{ #category : #'instance creation' }
+GFUnit >> inInch [
+	^ pixel / self dpi
+]
+
+{ #category : #'as yet unclassified' }
+GFUnit >> inMm [
+	^ (pixel * 25.4 / self dpi) asInteger
 	
 ]
 
@@ -86,13 +105,12 @@ GFUnit >> mm: millimeter [
 ]
 
 { #category : #accessing }
-GFUnit >> px [
-
-	^ pixel ifNil: [ pixel := 0 ]
-]
-
-{ #category : #accessing }
 GFUnit >> px: anObject [
 
 	pixel := anObject asInteger
+]
+
+{ #category : #accessing }
+GFUnit >> value [
+	^ pixel
 ]

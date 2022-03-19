@@ -6,7 +6,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'width',
-		'height'
+		'height',
+		'color'
 	],
 	#category : #GFCanvas
 }
@@ -59,6 +60,26 @@ GFPaper class >> B5yoko [
 		width: 257 mm;
 		height: 182 mm;
 		yourself
+]
+
+{ #category : #'as yet unclassified' }
+GFPaper class >> VGAyoko [
+	^ self new
+		width: 640 px;
+		height: 480 px;
+		yourself
+]
+
+{ #category : #accessing }
+GFPaper >> color [
+
+	^ color ifNil: [ color := Color white ]
+]
+
+{ #category : #accessing }
+GFPaper >> color: anObject [
+
+	color := anObject
 ]
 
 { #category : #accessing }

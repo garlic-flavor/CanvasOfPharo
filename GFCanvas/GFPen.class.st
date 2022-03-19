@@ -7,8 +7,7 @@ Class {
 	#instVars : [
 		'color',
 		'width',
-		'x',
-		'y'
+		'pos'
 	],
 	#category : #GFCanvas
 }
@@ -26,37 +25,25 @@ GFPen >> color: anObject [
 ]
 
 { #category : #accessing }
+GFPen >> pos [
+
+	^ pos ifNil: [ 0@0 ]
+]
+
+{ #category : #accessing }
+GFPen >> pos: anObject [
+
+	pos := anObject
+]
+
+{ #category : #accessing }
 GFPen >> width [
 
-	^ width ifNil: [ width := GFUnit mm: 1 ]
+	^ width ifNil: [ width := GFUnit px: 1 ]
 ]
 
 { #category : #accessing }
 GFPen >> width: anObject [
 
 	width := anObject
-]
-
-{ #category : #accessing }
-GFPen >> x [
-
-	^ x ifNil: [ x := GFUnit px: 0 ]
-]
-
-{ #category : #accessing }
-GFPen >> x: anObject [
-
-	x := anObject
-]
-
-{ #category : #accessing }
-GFPen >> y [
-
-	^ y ifNil: [ y := GFUnit px: 0 ]
-]
-
-{ #category : #accessing }
-GFPen >> y: anObject [
-
-	y := anObject
 ]
