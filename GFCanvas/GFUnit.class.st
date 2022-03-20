@@ -73,6 +73,7 @@ GFUnit >> dpi [
 { #category : #accessing }
 GFUnit >> dpi: anObject [
 
+	pixel ifNotNil: [ pixel := pixel * anObject / dpi ].
 	dpi := anObject
 ]
 

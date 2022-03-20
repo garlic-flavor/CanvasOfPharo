@@ -6,20 +6,52 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'morph',
-		'pen'
+		'pen',
+		'fillColor'
 	],
 	#category : #GFCanvas
 }
 
 { #category : #accessing }
 GFCanvas >> circle: radius [
-	self morph addMorph: (CircleMorph new
+	|circle|
+	circle := CircleMorph new
 		extent: radius@radius * 2;
 		position: self pen pos + self morph position - (radius@radius);
-		color: Color transparent;
+		color: self fillColor;
 		borderColor: self pen color;
 		borderWidth: self pen width value;
-		yourself)
+		yourself.
+	self morph addMorph: circle.
+	^ circle.
+]
+
+{ #category : #'as yet unclassified' }
+GFCanvas >> ellipse: radius flattening: flattening [
+	|rW rH ellipse|
+	rW := radius value.
+	rH := rW - (flattening * rW).
+	ellipse := EllipseMorph new
+		extent: (rW*2)@(rH*2);
+		position: self pen pos + self morph position - (rW@rH);
+		color: self fillColor;
+		borderColor: self pen color;
+		borderWidth: self pen width value;
+		yourself.
+	self morph addMorph: ellipse.
+	^ ellipse
+]
+
+{ #category : #accessing }
+GFCanvas >> fillColor [
+
+	^ fillColor ifNil: [ fillColor := Color transparent ]
+]
+
+{ #category : #accessing }
+GFCanvas >> fillColor: anObject [
+
+	fillColor := anObject
 ]
 
 { #category : #'path commands' }
@@ -29,7 +61,8 @@ GFCanvas >> lineTo: pos [
 	to := pos + self morph position.
 	line := LineMorph from: from to: to color: pen color width: pen width value.
 	self morph addMorph: line.
-	self pen pos: pos
+	self pen pos: pos.
+	^ line
 ]
 
 { #category : #accessing }
@@ -75,4 +108,25 @@ GFCanvas >> pen [
 GFCanvas >> pen: anObject [
 
 	pen := anObject
+]
+
+{ #category : #'as yet unclassified' }
+GFCanvas >> rotate: aMorph deglee: angle [
+	aMorph transformedBy: (self rotationMatrix: angle)
+]
+
+{ #category : #'as yet unclassified' }
+GFCanvas >> rotationMatrix: angle [
+	|rad t1 t2 t3|
+	rad := angle * Float pi / 180.
+	t1 := MorphicTransform new
+		setOffset: (self morph position + self pen pos) * -1;
+		yourself.
+	t2 := MorphicTransform new
+		setAngle: rad;
+		yourself.
+	t3 := MorphicTransform new
+		setOffset: (self morph position + self pen pos);
+		yourself.
+	^ (t1 composedWith: t2) composedWith: t3
 ]

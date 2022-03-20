@@ -83,6 +83,17 @@ GFPaper >> color: anObject [
 ]
 
 { #category : #accessing }
+GFPaper >> dpi [
+	^ self height dpi
+]
+
+{ #category : #accessing }
+GFPaper >> dpi: newDpi [
+	self height dpi: newDpi.
+	self width dpi: newDpi.
+]
+
+{ #category : #accessing }
 GFPaper >> height [
 
 	^ height ifNil: [ height := GFUnit new ]
