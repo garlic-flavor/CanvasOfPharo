@@ -12,6 +12,13 @@ Class {
 	#category : #GFCanvas
 }
 
+{ #category : #'instance creation' }
+GFCanvas class >> open: paper [
+	^ self new
+		openPaper: paper;
+		yourself
+]
+
 { #category : #accessing }
 GFCanvas >> circle: radius [
 	|circle|
@@ -91,9 +98,11 @@ GFCanvas >> openPaper: paper [
 
 { #category : #'as yet unclassified' }
 GFCanvas >> paper: paper [
-	self morph: (Morph
+	self morph: ((Morph
 		newBounds: (Rectangle origin: 0@0 extent: (paper width value @ paper height value))
 		color: paper color)
+			clipSubmorphs: true;
+			yourself)
 
 
 ]

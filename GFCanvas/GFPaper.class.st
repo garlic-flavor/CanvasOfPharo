@@ -70,6 +70,14 @@ GFPaper class >> VGAyoko [
 		yourself
 ]
 
+{ #category : #'instance creation' }
+GFPaper class >> width: w height: h [
+	^ self new
+		width: w;
+		height: h;
+		yourself
+]
+
 { #category : #accessing }
 GFPaper >> color [
 

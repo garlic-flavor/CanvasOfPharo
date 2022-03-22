@@ -8,14 +8,25 @@ Class {
 BaselineOfGFCanvas >> baseline: spec [
 	<baseline>
 	spec
-		for: #common
+		for: #pharo
 		do: [
+			spec blessing: #baseline.
+			self setUpDependencies: spec.
+
 			spec
-				package: 'GFCanvas'
+				package: 'GFCanvas';
+				package: 'GFCanvas-Example' with: [ spec requires: #('GFCanvas') ]
 		]
 ]
 
 { #category : #accessing }
 BaselineOfGFCanvas >> projectClass [
 	^ MetacelloCypressBaselineProject
+]
+
+{ #category : #initialization }
+BaselineOfGFCanvas >> setUpDependencies: spec [
+	spec
+		baseline: 'GFMatrix'
+			with: [ spec repository: 'github://garlic-flavor/MatrixForPharo:master/repository' ]
 ]
