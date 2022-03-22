@@ -40,6 +40,19 @@ GFCanvas >> circle: radius [
 	^ circle.
 ]
 
+{ #category : #'path commands' }
+GFCanvas >> drawLines: vertices [
+	|poly|
+	poly := PolygonMorph
+		vertices: vertices
+		color: self fillColor
+		borderWidth: self pen width value
+		borderColor: self pen color.
+	poly makeOpen.
+	self morph addMorph: poly.
+	^ poly
+]
+
 { #category : #'as yet unclassified' }
 GFCanvas >> ellipse: radius flattening: flattening [
 	|rW rH ellipse|

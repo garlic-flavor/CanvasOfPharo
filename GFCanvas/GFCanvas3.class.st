@@ -8,6 +8,14 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+GFCanvas3 >> drawPolygon3: obj [
+	|v|
+	self world local: obj local.
+	v := obj vertices collect: [ :each | self world * each ].
+	self drawLines: v
+]
+
+{ #category : #'as yet unclassified' }
 GFCanvas3 >> drawPolyline3: obj [
 	|v|
 	self world local: obj local.
