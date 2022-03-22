@@ -13,6 +13,13 @@ Class {
 }
 
 { #category : #'instance creation' }
+GFCanvas class >> new: paper [
+	^ self new
+		paper: paper;
+		yourself
+]
+
+{ #category : #'instance creation' }
 GFCanvas class >> open: paper [
 	^ self new
 		openPaper: paper;
@@ -47,6 +54,11 @@ GFCanvas >> ellipse: radius flattening: flattening [
 		yourself.
 	self morph addMorph: ellipse.
 	^ ellipse
+]
+
+{ #category : #accessing }
+GFCanvas >> export [
+	self morph exportAsPNG
 ]
 
 { #category : #accessing }
