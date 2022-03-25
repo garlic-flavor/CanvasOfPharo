@@ -1,6 +1,6 @@
 Class {
 	#name : #GFSDLCanvasTest,
-	#superclass : #GFSDLCanvas,
+	#superclass : #GFSDLStaticCanvas,
 	#category : #'GFCanvas-Example'
 }
 
