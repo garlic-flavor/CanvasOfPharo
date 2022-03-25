@@ -12,3 +12,12 @@ GFSDLCanvasTest >> redraw [
 		color: Color black;
 		drawRectangle: (100@100 extent: 100@100)
 ]
+
+{ #category : #actions }
+GFSDLCanvasTest >> save [
+	|surface rw|
+	surface := window backendWindow sdl2Window getWindowSurface.
+	rw := SDL2 rwFromFile: '/Users/giga/Documents/Pharo/images/test.bmp' mode: 'wb'.
+	surface saveBMP_RW: rw freedst: 1.
+	
+]
