@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'renderer',
-		'window'
+		'window',
+		'counter'
 	],
 	#category : #GFCanvas
 }
@@ -36,6 +37,7 @@ GFSDLCanvas >> onUpdateEvent: elapsed [
 
 { #category : #'instance creation' }
 GFSDLCanvas >> open [
+	counter := 0.
 	window := OSWindowAnimated createWithAttributes: (OSWindowAttributes new
 		extent: 640@480;
 		resizable: false;
@@ -44,6 +46,7 @@ GFSDLCanvas >> open [
 	renderer := window newGenericRenderer.
 	self initializeWithRenderer.
 	window eventHandler: self createEventHandler.
+	self redrawAndPresent.
 ]
 
 { #category : #rendering }
@@ -58,6 +61,7 @@ GFSDLCanvas >> redraw [
 
 { #category : #'instance creation' }
 GFSDLCanvas >> redrawAndPresent [
+	counter := counter + 1.
 	self
 		redraw;
 		present
