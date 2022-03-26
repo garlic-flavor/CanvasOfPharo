@@ -7,7 +7,7 @@ Class {
 { #category : #'as yet unclassified' }
 GFCanvasExample >> circle_01 [
 	|canvas circle|
-	canvas := (GFCanvas3 open: GFPaper VGAyoko)
+	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
 		focalLength: 50;
 		from: (GFVector3 x: 0 y: 0 z: 10);
 		yourself.
@@ -24,7 +24,7 @@ GFCanvasExample >> circle_01 [
 { #category : #'as yet unclassified' }
 GFCanvasExample >> cube_01 [
 	|canvas cube|
-	canvas := (GFCanvas3 open: GFPaper VGAyoko)
+	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
 		focalLength: 50;
 		from: (GFVector3 x: 5 y: 5 z: 10);
 		yourself.
@@ -36,7 +36,7 @@ GFCanvasExample >> cube_01 [
 { #category : #'as yet unclassified' }
 GFCanvasExample >> roomA_01 [
 	|canvas room|
-	canvas := (GFCanvas3 open: GFPaper VGAyoko)
+	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
 		focalLength: 50;
 		from: (GFVector3 x: 2 y: -0 z: 3);
 		yourself.

@@ -1,27 +1,8 @@
 Class {
 	#name : #GFSDLCanvas,
-	#superclass : #Object,
-	#instVars : [
-		'renderer',
-		'window'
-	],
+	#superclass : #GFSDLCanvasBase,
 	#category : #GFCanvas
 }
-
-{ #category : #factory }
-GFSDLCanvas >> createEventHandler [
-	^ GFSDLCanvasEventHandler new
-		canvas: self;
-		yourself
-]
-
-{ #category : #initialization }
-GFSDLCanvas >> initializeWithRenderer [
-]
-
-{ #category : #'as yet unclassified' }
-GFSDLCanvas >> onDestroyEvent [
-]
 
 { #category : #'as yet unclassified' }
 GFSDLCanvas >> onDrawEvent [
@@ -45,21 +26,4 @@ GFSDLCanvas >> open [
 	self initializeWithRenderer.
 	window eventHandler: self createEventHandler.
 
-]
-
-{ #category : #rendering }
-GFSDLCanvas >> present [
-	renderer present
-]
-
-{ #category : #drawing }
-GFSDLCanvas >> redraw [
-	^ self subclassResponsibility 
-]
-
-{ #category : #'instance creation' }
-GFSDLCanvas >> redrawAndPresent [
-	self
-		redraw;
-		present
 ]

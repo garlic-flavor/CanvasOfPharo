@@ -1,23 +1,8 @@
 Class {
 	#name : #GFSDLStaticCanvas,
-	#superclass : #Object,
-	#instVars : [
-		'renderer',
-		'window'
-	],
+	#superclass : #GFSDLCanvasBase,
 	#category : #GFCanvas
 }
-
-{ #category : #factory }
-GFSDLStaticCanvas >> createEventHandler [
-	^ GFSDLCanvasEventHandler new
-		canvas: self;
-		yourself
-]
-
-{ #category : #initialization }
-GFSDLStaticCanvas >> initializeWithRenderer [
-]
 
 { #category : #'as yet unclassified' }
 GFSDLStaticCanvas >> onDestroyEvent [
@@ -26,7 +11,7 @@ GFSDLStaticCanvas >> onDestroyEvent [
 { #category : #'instance creation' }
 GFSDLStaticCanvas >> open [
 	window := OSWindow createWithAttributes: (OSWindowAttributes new
-		extent: 640@480;
+		extent: (self paper width value @ self paper height value);
 		resizable: false;
 		windowCentered: true;
 		yourself).
@@ -34,21 +19,4 @@ GFSDLStaticCanvas >> open [
 	self initializeWithRenderer.
 	window eventHandler: self createEventHandler.
 	self redrawAndPresent.
-]
-
-{ #category : #rendering }
-GFSDLStaticCanvas >> present [
-	renderer present
-]
-
-{ #category : #drawing }
-GFSDLStaticCanvas >> redraw [
-	^ self subclassResponsibility 
-]
-
-{ #category : #'instance creation' }
-GFSDLStaticCanvas >> redrawAndPresent [
-	self
-		redraw;
-		present
 ]
