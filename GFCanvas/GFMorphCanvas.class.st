@@ -10,6 +10,11 @@ Class {
 	#category : #GFCanvas
 }
 
+{ #category : #adding }
+GFMorphCanvas >> add: anObject [
+	anObject drawOn: self
+]
+
 { #category : #accessing }
 GFMorphCanvas >> circle: radius [
 	|circle|

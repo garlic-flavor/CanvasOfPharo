@@ -30,11 +30,64 @@ GFSDLCanvasBase class >> createSurface: size [
 		yourself
 ]
 
+{ #category : #adding }
+GFSDLCanvasBase >> add: item [
+	self items add: item.
+	self redrawAndPresent.
+]
+
+{ #category : #accessing }
+GFSDLCanvasBase >> circle: radius [
+	|num step vert|
+	num := 20.
+	step := Float twoPi / (num - 1).
+	vert := OrderedCollection new: num.
+	1 to: num do: [ :i |
+		vert add: (radius * (i cos)) @ (radius * (i sin))
+	].
+	self drawLines: vert
+]
+
+{ #category : #drawing }
+GFSDLCanvasBase >> clear [
+	renderer
+		color: self paper color;
+		clear
+
+]
+
 { #category : #factory }
 GFSDLCanvasBase >> createEventHandler [
 	^ GFSDLCanvasEventHandler new
 		canvas: self;
 		yourself
+]
+
+{ #category : #'path commands' }
+GFSDLCanvasBase >> drawLines: vertices [
+	|prev curr|
+	vertices isEmptyOrNil ifTrue: [ ^ self ].
+	renderer color: self pen color.
+	prev := vertices first + self pen pos.
+	vertices allButFirst do: [ :vert |
+		curr := vert + self pen pos.
+		renderer drawLine: prev end: curr.
+		prev := curr.
+	]
+
+]
+
+{ #category : #'as yet unclassified' }
+GFSDLCanvasBase >> ellipse: radius flattening: flattening [
+	|num step vert|
+	num := 20.
+	step := Float twoPi / (num - 1).
+	vert := OrderedCollection new: num.
+	1 to: num do: [ :i |
+		vert add: (radius * (i cos)) @ (radius * (i sin) * flattening)
+	].
+	self drawLines: vert
+
 ]
 
 { #category : #'as yet unclassified' }
@@ -69,13 +122,16 @@ GFSDLCanvasBase >> items: anObject [
 	items := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-GFSDLCanvasBase >> onDestroyEvent [
+{ #category : #'path commands' }
+GFSDLCanvasBase >> lineTo: pos [
+	renderer
+		color: self pen color;
+		drawLine: self pen pos end: pos.
+	self pen pos: pos
 ]
 
-{ #category : #'instance creation' }
-GFSDLCanvasBase >> open [
-	^ self subclassResponsibility 
+{ #category : #'as yet unclassified' }
+GFSDLCanvasBase >> onDestroyEvent [
 ]
 
 { #category : #rendering }
@@ -85,10 +141,7 @@ GFSDLCanvasBase >> present [
 
 { #category : #drawing }
 GFSDLCanvasBase >> redraw [
-	renderer
-		color: self paper color;
-		clear;
-		color: self pen color.
+	self clear.
 	self items do: [ :item | item drawOn: self ]
 
 ]

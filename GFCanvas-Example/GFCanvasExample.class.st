@@ -29,7 +29,7 @@ GFCanvasExample >> cube_01 [
 		from: (GFVector3 x: 5 y: 5 z: 10);
 		yourself.
 	cube := GFPolyline3 cube.
-	canvas drawPolyline3: cube.
+	canvas add: cube.
 
 ]
 
