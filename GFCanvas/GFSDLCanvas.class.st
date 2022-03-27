@@ -4,17 +4,6 @@ Class {
 	#category : #GFCanvas
 }
 
-{ #category : #'as yet unclassified' }
-GFSDLCanvas >> onDrawEvent [
-	OSWindowRenderThread enqueueOperation: [
-		renderer ifNotNil: [ self redrawAndPresent ]
-	]
-]
-
-{ #category : #'as yet unclassified' }
-GFSDLCanvas >> onUpdateEvent: elapsed [
-]
-
 { #category : #'instance creation' }
 GFSDLCanvas >> open [
 	window := OSWindowAnimated createWithAttributes: (OSWindowAttributes new

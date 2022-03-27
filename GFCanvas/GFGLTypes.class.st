@@ -14,6 +14,6 @@ Class {
 GFGLTypes class >> initialize [
 	GLint := #int32.
 	GLsizei := #uint32.
-	GLclampf := #float32.
+	GLclampf := #float.
 	GLbitfield := #uint32.
 ]

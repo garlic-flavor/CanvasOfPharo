@@ -134,6 +134,17 @@ GFSDLCanvasBase >> lineTo: pos [
 GFSDLCanvasBase >> onDestroyEvent [
 ]
 
+{ #category : #'as yet unclassified' }
+GFSDLCanvasBase >> onDrawEvent [
+	OSWindowRenderThread enqueueOperation: [
+		renderer ifNotNil: [ self redrawAndPresent ]
+	]
+]
+
+{ #category : #'as yet unclassified' }
+GFSDLCanvasBase >> onUpdateEvent: elapsed [
+]
+
 { #category : #rendering }
 GFSDLCanvasBase >> present [
 	renderer present

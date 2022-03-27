@@ -2,18 +2,20 @@ Class {
 	#name : #GFGLCanvas,
 	#superclass : #GFSDLCanvasBase,
 	#pools : [
-		'GFGLConstants'
+		'GFGLConstants',
+		'SDL2Constants'
 	],
 	#category : #GFCanvas
 }
 
-{ #category : #'as yet unclassified' }
-GFGLCanvas >> onDrawEvent [
+{ #category : #accessing }
+GFGLCanvas >> clear [
 	GFGL clear: GL_COLOR_BUFFER_BIT.
 ]
 
 { #category : #'as yet unclassified' }
-GFGLCanvas >> onUpdateEvent: elapsed [
+GFGLCanvas >> onDestroyEvent [
+	renderer destroy
 ]
 
 { #category : #'instance creation' }
@@ -22,12 +24,16 @@ GFGLCanvas >> open [
 		extent: ((self paper width value)@(self paper height value));
 		resizable: false;
 		windowCentered: true;
+		glAttributes: OSWindowGLAttributes new;
 		yourself).
 	renderer := window newOpenGLRenderer.
 	renderer createContext.
-	renderer makeCurrent: window backendWindow.
-	GFGL viewportX: 0 y: 0 w: self paper width value h: self paper height value.
+	GFGL viewportX: 0 y: 0 w: 640 h: 480.
 	GFGL clearColor: self paper color.
+"
+	GFGL clear: GL_COLOR_BUFFER_BIT.
+	renderer swapBuffers: window backendWindow.
+"
 	self initializeWithRenderer.
 	window eventHandler: self createEventHandler.
 
@@ -36,5 +42,5 @@ GFGLCanvas >> open [
 { #category : #rendering }
 GFGLCanvas >> present [
 	renderer swapBuffers: window backendWindow.
-	renderer present.
+
 ]
