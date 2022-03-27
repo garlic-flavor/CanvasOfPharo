@@ -34,6 +34,28 @@ GFCanvasExample >> cube_01 [
 ]
 
 { #category : #'as yet unclassified' }
+GFCanvasExample >> grid_01 [
+	|canvas grid|
+	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
+		focalLength: 50;
+		from: (GFVector3 x: 5 y: 5 z: 10);
+		yourself.
+	grid := GFPolyline3 grid: 0.3 w: 5 h: 3.
+	canvas add: grid.
+
+]
+
+{ #category : #'as yet unclassified' }
+GFCanvasExample >> grid_02 [
+	|canvas|
+	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
+		focalLength: 50;
+		from: (GFVector3 x: 5 y: 5 z: 10);
+		yourself.
+	canvas add: (GFRoomType1 size: 0.5 w: 5 h: 3 d: 4).
+]
+
+{ #category : #'as yet unclassified' }
 GFCanvasExample >> roomA_01 [
 	|canvas room|
 	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
