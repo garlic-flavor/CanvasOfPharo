@@ -1,18 +1,20 @@
 Class {
-	#name : #GFSDLSimpleCanvas,
+	#name : #GFGLSimpleCanvas,
 	#superclass : #Object,
 	#instVars : [
 		'window',
-		'renderer'
+		'renderer',
+		'context'
 	],
 	#pools : [
+		'GFGLConstants',
 		'SDL2Constants'
 	],
-	#category : #'GFCanvas-SDL'
+	#category : #'GFCanvas-OpenGL'
 }
 
 { #category : #'initialize-release' }
-GFSDLSimpleCanvas >> close [
+GFGLSimpleCanvas >> close [
 	renderer ifNotNil: [
 		renderer destroy.
 		renderer := nil
@@ -24,52 +26,48 @@ GFSDLSimpleCanvas >> close [
 ]
 
 { #category : #factory }
-GFSDLSimpleCanvas >> createEventHandler [
+GFGLSimpleCanvas >> createEventHandler [
 	^ GFSDLCanvasEventHandler new
 		canvas: self;
 		yourself.
 ]
 
 { #category : #'instance creation' }
-GFSDLSimpleCanvas >> open [
+GFGLSimpleCanvas >> open [
 	SDL2 initVideo.
 	window := SDL2 createWindow: 'GFTest'
 		x: SDL_WINDOWPOS_UNDEFINED
 		y: SDL_WINDOWPOS_UNDEFINED
 		width: 640
 		height: 480
-		flags: SDL_WINDOW_SHOWN.
-	renderer := window createDefaultRenderer.
-	renderer
-		drawColorR: 255 g: 255 b: 255 a: 255;
-		clear;
-		drawColorR: 0 g: 255 b: 0 a: 255;
-		drawPointX: 10 y: 10;
-		drawLineX1: 30 y1: 30 x2: 500 y2: 30;
-		present.
-
+		flags: SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL.
+	context := SDL2 glCreateContext: window.
+	GFGL viewportX: 0 y: 0 w: 640 h: 480.
+	GFGL clearColorR: 0.7 g: 0.7 b: 1.0 a: 1.0.
+	GFGL clear: GL_COLOR_BUFFER_BIT.
+	SDL2 glSwapWindow: window.
 ]
 
 { #category : #accessing }
-GFSDLSimpleCanvas >> renderer [
+GFGLSimpleCanvas >> renderer [
 
 	^ renderer
 ]
 
 { #category : #accessing }
-GFSDLSimpleCanvas >> renderer: anObject [
+GFGLSimpleCanvas >> renderer: anObject [
 
 	renderer := anObject
 ]
 
 { #category : #accessing }
-GFSDLSimpleCanvas >> window [
+GFGLSimpleCanvas >> window [
 
 	^ window
 ]
 
 { #category : #accessing }
-GFSDLSimpleCanvas >> window: anObject [
+GFGLSimpleCanvas >> window: anObject [
 
 	window := anObject
 ]

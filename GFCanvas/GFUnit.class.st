@@ -11,7 +11,7 @@ Class {
 	#classInstVars : [
 		'defaultDPI'
 	],
-	#category : #GFCanvas
+	#category : #'GFCanvas-Base'
 }
 
 { #category : #'as yet unclassified' }

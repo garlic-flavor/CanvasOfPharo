@@ -9,7 +9,7 @@ Class {
 		'width',
 		'pos'
 	],
-	#category : #GFCanvas
+	#category : #'GFCanvas-Base'
 }
 
 { #category : #accessing }

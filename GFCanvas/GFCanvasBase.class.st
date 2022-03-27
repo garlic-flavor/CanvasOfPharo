@@ -7,7 +7,7 @@ Class {
 		'fillColor',
 		'world'
 	],
-	#category : #GFCanvas
+	#category : #'GFCanvas-Base'
 }
 
 { #category : #'instance creation' }

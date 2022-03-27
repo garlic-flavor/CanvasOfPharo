@@ -6,7 +6,7 @@ Class {
 		'window',
 		'items'
 	],
-	#category : #GFCanvas
+	#category : #'GFCanvas-SDL'
 }
 
 { #category : #'as yet unclassified' }
@@ -132,6 +132,17 @@ GFSDLCanvasBase >> lineTo: pos [
 
 { #category : #'as yet unclassified' }
 GFSDLCanvasBase >> onDestroyEvent [
+]
+
+{ #category : #'as yet unclassified' }
+GFSDLCanvasBase >> onDrawEvent [
+	OSWindowRenderThread enqueueOperation: [
+		renderer ifNotNil: [ self redrawAndPresent ]
+	]
+]
+
+{ #category : #'as yet unclassified' }
+GFSDLCanvasBase >> onUpdateEvent: elapsed [
 ]
 
 { #category : #rendering }

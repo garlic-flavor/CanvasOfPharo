@@ -8,7 +8,7 @@ Class {
 		'depth',
 		'local'
 	],
-	#category : #GFCanvas
+	#category : #'GFCanvas-Models'
 }
 
 { #category : #'as yet unclassified' }

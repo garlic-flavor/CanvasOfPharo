@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'morph'
 	],
-	#category : #GFCanvas
+	#category : #'GFCanvas-Morph'
 }
 
 { #category : #adding }

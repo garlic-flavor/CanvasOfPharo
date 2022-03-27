@@ -1,19 +1,8 @@
 Class {
 	#name : #GFSDLCanvas,
 	#superclass : #GFSDLCanvasBase,
-	#category : #GFCanvas
+	#category : #'GFCanvas-SDL'
 }
-
-{ #category : #'as yet unclassified' }
-GFSDLCanvas >> onDrawEvent [
-	OSWindowRenderThread enqueueOperation: [
-		renderer ifNotNil: [ self redrawAndPresent ]
-	]
-]
-
-{ #category : #'as yet unclassified' }
-GFSDLCanvas >> onUpdateEvent: elapsed [
-]
 
 { #category : #'instance creation' }
 GFSDLCanvas >> open [

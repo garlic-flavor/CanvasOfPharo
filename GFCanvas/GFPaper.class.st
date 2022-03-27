@@ -9,7 +9,7 @@ Class {
 		'height',
 		'color'
 	],
-	#category : #GFCanvas
+	#category : #'GFCanvas-Base'
 }
 
 { #category : #'as yet unclassified' }
