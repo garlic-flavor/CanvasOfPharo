@@ -8,6 +8,11 @@ Class {
 	#category : #'GFCanvas-OpenGL-Bindings'
 }
 
+{ #category : #'as yet unclassified' }
+GFGL class >> begin: mode [
+	^ self ffiCall: #( void glBegin ( GLenum mode ) )
+]
+
 { #category : #public }
 GFGL class >> clear: mask [
 	^ self ffiCall: #( void glClear ( GLbitfield mask ) )
@@ -25,10 +30,58 @@ GFGL class >> clearColorR: r g: g b: b a: a [
 		GLclampf r, GLclampf g, GLclampf b, GLclampf a ))
 ]
 
+{ #category : #'as yet unclassified' }
+GFGL class >> color4fR: red g: green b: blue a: alpha [
+	^ self ffiCall: #( void glColor4f ( 
+		GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha ) )
+]
+
+{ #category : #accessing }
+GFGL class >> color: color [
+	^ self color4fR: color red g: color green b: color blue a: color alpha
+]
+
+{ #category : #accessing }
+GFGL class >> end [
+	^ self ffiCall: #( void glEnd ( ) )
+]
+
 { #category : #'library path' }
 GFGL class >> ffiLibraryName [
 	self flag: #toImplement.
 	^ #OpenGL
+]
+
+{ #category : #transformations }
+GFGL class >> loadIdentity [
+	^ self ffiCall: #( void glLoadIdentity () )
+]
+
+{ #category : #'as yet unclassified' }
+GFGL class >> matrixMode: mode [
+	^ self ffiCall: #( void glMatrixMode ( GLenum mode ) )
+]
+
+{ #category : #'as yet unclassified' }
+GFGL class >> rotatef: angle x: x y: y z: z [
+	^ self ffiCall: #( void glRotatef (
+		GLfloat angle, GLfloat x, GLfloat y, GLfloat z ) )
+]
+
+{ #category : #'as yet unclassified' }
+GFGL class >> translatefX: x y: y z: z [
+	^ self ffiCall: #( void glTranslatef ( GLfloat x, GLfloat y, GLfloat z ) )
+]
+
+{ #category : #'as yet unclassified' }
+GFGL class >> vertex3fX: x y: y z: z [
+	^ self ffiCall: #( void glVertex3f (
+		GLfloat x, GLfloat y, GLfloat z ) )
+]
+
+{ #category : #accessing }
+GFGL class >> vertex: v [
+	^ self vertex3fX: v x y: v y z: v z
 ]
 
 { #category : #'as yet unclassified' }
