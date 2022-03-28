@@ -67,6 +67,19 @@ GFGL class >> matrixMode: mode [
 ]
 
 { #category : #'as yet unclassified' }
+GFGL class >> readPixelsX: x y: y w: w h: h format: fmt type: type pixels: pixels [
+	^ self ffiCall: #( void glReadPixels (
+	   GLint   x,
+	   GLint   y,
+	   GLsizei w,
+	   GLsizei h,
+	   GLenum  fmt,
+	   GLenum  type,
+	   GLvoid* pixels
+	) )
+]
+
+{ #category : #'as yet unclassified' }
 GFGL class >> rotatef: angle x: x y: y z: z [
 	^ self ffiCall: #( void glRotatef (
 		GLfloat angle, GLfloat x, GLfloat y, GLfloat z ) )
