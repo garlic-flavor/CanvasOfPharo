@@ -25,9 +25,13 @@ GFGL class >> clearColor: color [
 ]
 
 { #category : #'as yet unclassified' }
-GFGL class >> clearColorR: r g: g b: b a: a [
-	^ self ffiCall: #( void glClearColor (
-		GLclampf r, GLclampf g, GLclampf b, GLclampf a ))
+GFGL class >> clearColorR: red g: green b: blue a: alpha [
+	^ self ffiCall: #(void glClearColor(
+	   GLclampf red,
+	   GLclampf green,
+	   GLclampf blue,
+	   GLclampf alpha
+	) )
 ]
 
 { #category : #'as yet unclassified' }

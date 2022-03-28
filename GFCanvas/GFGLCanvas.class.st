@@ -20,7 +20,7 @@ GFGLCanvas >> onDestroyEvent [
 
 { #category : #'instance creation' }
 GFGLCanvas >> open [
-	window := OSWindow createWithAttributes: (OSWindowAttributes new
+	window := OSWindowAnimated createWithAttributes: (OSWindowAttributes new
 		extent: ((self paper width value)@(self paper height value));
 		resizable: false;
 		windowCentered: true;
@@ -28,16 +28,8 @@ GFGLCanvas >> open [
 		yourself).
 	renderer := window newOpenGLRenderer.
 	renderer createContext.
-	renderer makeCurrent.
-	GFGL viewportX: 0 y: 0 w: 640 h: 480.
-	GFGL clearColorR: 1.0 g: 1.0 b: 1.0 a: 1.0.
-"
+	GFGL viewportX: 0 y: 0 w: self paper width value h: self paper height value.
 	GFGL clearColor: self paper color.
-"
-""
-	GFGL clear: GL_COLOR_BUFFER_BIT.
-	renderer swapBuffers.
-""
 	self initializeWithRenderer.
 	window eventHandler: self createEventHandler.
 
