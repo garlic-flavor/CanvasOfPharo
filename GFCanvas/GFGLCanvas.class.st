@@ -10,7 +10,7 @@ Class {
 
 { #category : #accessing }
 GFGLCanvas >> clear [
-	GFGL clear: GL_COLOR_BUFFER_BIT.
+	GFGL clear: (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT).
 ]
 
 { #category : #'as yet unclassified' }
