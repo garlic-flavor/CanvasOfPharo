@@ -22,7 +22,8 @@ Class {
 		'GLubyte',
 		'GLuint',
 		'GLuint64',
-		'GLushort'
+		'GLushort',
+		'GLvoid'
 	],
 	#category : #'GFCanvas-OpenGL-Bindings'
 }
@@ -50,5 +51,6 @@ GFGLTypes class >> initialize [
 	GLclampf := #float32.
 	GLdouble := #float64.
 	GLclampd := #float64.
+	GLvoid := #void.
 
 ]

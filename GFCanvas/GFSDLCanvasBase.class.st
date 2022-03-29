@@ -22,9 +22,9 @@ GFSDLCanvasBase class >> chooseFile [
 GFSDLCanvasBase class >> createSurface: size [
 	^ (SDL2 createRGBSurface: 0
 		width: size x height: size y depth: 24
-		rmask: 16r00ff0000
+		rmask: 16r000000ff
 		gmask: 16r0000ff00
-		bmask: 16r000000ff
+		bmask: 16r00ff0000
 		amask: 16r00000000)
 		autoRelease;
 		yourself
@@ -132,6 +132,8 @@ GFSDLCanvasBase >> lineTo: pos [
 
 { #category : #'as yet unclassified' }
 GFSDLCanvasBase >> onDestroyEvent [
+	renderer destroy.
+
 ]
 
 { #category : #'as yet unclassified' }

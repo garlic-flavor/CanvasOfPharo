@@ -13,9 +13,27 @@ GFGLCanvas >> clear [
 	GFGL clear: (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT).
 ]
 
-{ #category : #'as yet unclassified' }
-GFGLCanvas >> onDestroyEvent [
-	renderer destroy
+{ #category : #accessing }
+GFGLCanvas >> export [
+	|reference surface pixels w h rw|
+	reference := self class chooseFile.
+	reference ifNil: [ ^ self ].
+	w := window extent x.
+	h := window extent y.
+	surface := self class createSurface: window extent.
+	pixels := SDL2 malloc: 3 * w * h.
+	GFGL readPixelsX: 0 y: 0 w: w h: h
+		format: GL_RGB type: GL_UNSIGNED_BYTE pixels: pixels.
+	0 to: (h - 1) do: [ :i |
+		SDL2 memcpy: pixels + (3 * w * (h - i - 1))
+			to: surface pixels + (surface pitch * i)
+			size: w * 3
+	].
+	SDL2 free: pixels.
+
+	rw := SDL2 rwFromFile: reference fullName mode: 'wb'.
+	surface saveBMP_RW: rw freedst: 1.
+
 ]
 
 { #category : #'instance creation' }
