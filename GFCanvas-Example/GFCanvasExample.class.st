@@ -23,6 +23,33 @@ GFCanvasExample >> chess_01 [
 ]
 
 { #category : #'as yet unclassified' }
+GFCanvasExample >> chess_room_01 [
+	|s w h|
+	s := 0.3.
+	w := 20.
+	h := 7.
+	canvas := GFMorphCanvas new
+		world: GFFishEye new;
+		paper: GFPaper VGAyoko;
+		focalLength: 35;
+		from: (GFVector3 x: 5 y: 1 z: 5.1) to: (GFVector3 x: 1 y: 1 z: 0);
+		add: (GFChess new: s w: w h: h);
+		add: ((GFChess new: s w: w h: h)
+			local: (GFMatrix4x4 rotate: (Float halfPi * -1) axis: GFVector3 y);
+			yourself);
+		add: ((GFChess newShifted: s w: w h: w)
+			local: (GFMatrix4x4 rotate: Float halfPi axis: GFVector3 x);
+			yourself);
+		add: ((GFChess newShifted: s w: w h: w)
+			local: (GFMatrix4x4 translateX: 0 y: (s * h) z: 0) * 
+				(GFMatrix4x4 rotate: Float halfPi axis: GFVector3 x);
+			yourself);
+		open;
+		yourself
+		
+]
+
+{ #category : #'as yet unclassified' }
 GFCanvasExample >> circle_01 [
 	|circle|
 	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
@@ -37,6 +64,13 @@ GFCanvasExample >> circle_01 [
 		canvas drawPolygon3: circle.
 		circle local: (GFMatrix4x4 translateX: 0 y: 0.3 z: 0) * circle local.
 	]
+]
+
+{ #category : #'initialize-release' }
+GFCanvasExample >> close [
+	canvas ifNil: [ ^ self ].
+	canvas close.
+	canvas := nil.
 ]
 
 { #category : #'as yet unclassified' }

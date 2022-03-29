@@ -100,6 +100,11 @@ GFCanvasBase >> from: pos [
 	self world from: pos
 ]
 
+{ #category : #'instance creation' }
+GFCanvasBase >> from: pos to: to [
+	self world from: pos to: to
+]
+
 { #category : #'path commands' }
 GFCanvasBase >> lineTo: pos [
 	^ self subclassResponsibility 
