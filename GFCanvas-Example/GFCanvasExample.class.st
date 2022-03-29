@@ -68,3 +68,16 @@ GFCanvasExample >> roomA_01 [
 	canvas drawPolyline3: room.
 
 ]
+
+{ #category : #'as yet unclassified' }
+GFCanvasExample >> square_01 [
+	|canvas square|
+	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
+		focalLength: 50;
+		from: (GFVector3 x: 2 y: -0 z: 3);
+		yourself.
+	canvas pen width: 1.
+	square := GFPolygon3 square.
+	canvas add: square.
+
+]
