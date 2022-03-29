@@ -67,6 +67,18 @@ GFGL class >> matrixMode: mode [
 ]
 
 { #category : #'as yet unclassified' }
+GFGL class >> orthoL: left r: right b: bottom t: top n: near f: far [
+	^ self ffiCall: #( void glOrtho(
+	GLdouble left,
+ 	GLdouble right,
+ 	GLdouble bottom,
+ 	GLdouble top,
+ 	GLdouble near,
+ 	GLdouble far) )
+ 
+]
+
+{ #category : #'as yet unclassified' }
 GFGL class >> readPixelsX: x y: y w: w h: h format: fmt type: type pixels: pixels [
 	^ self ffiCall: #( void glReadPixels (
 	   GLint   x,
@@ -90,15 +102,26 @@ GFGL class >> translatefX: x y: y z: z [
 	^ self ffiCall: #( void glTranslatef ( GLfloat x, GLfloat y, GLfloat z ) )
 ]
 
+{ #category : #accessing }
+GFGL class >> vertex2: v [
+	^ self vertex2fX: v x y: v y
+]
+
+{ #category : #'as yet unclassified' }
+GFGL class >> vertex2fX: x y: y [
+	^ self ffiCall: #( void glVertex3f (
+		GLfloat x, GLfloat y  ) )
+]
+
+{ #category : #accessing }
+GFGL class >> vertex3: v [
+	^ self vertex3fX: v x y: v y z: v z
+]
+
 { #category : #'as yet unclassified' }
 GFGL class >> vertex3fX: x y: y z: z [
 	^ self ffiCall: #( void glVertex3f (
 		GLfloat x, GLfloat y, GLfloat z ) )
-]
-
-{ #category : #accessing }
-GFGL class >> vertex: v [
-	^ self vertex3fX: v x y: v y z: v z
 ]
 
 { #category : #'as yet unclassified' }

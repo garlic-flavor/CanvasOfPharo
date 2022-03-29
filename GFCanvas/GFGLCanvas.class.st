@@ -10,7 +10,7 @@ Class {
 
 { #category : #accessing }
 GFGLCanvas >> clear [
-	GFGL clear: (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT).
+	GFGL clear: GL_COLOR_BUFFER_BIT.
 ]
 
 { #category : #accessing }
@@ -36,6 +36,18 @@ GFGLCanvas >> export [
 
 ]
 
+{ #category : #'path commands' }
+GFGLCanvas >> lineTo: pos [
+	GFGL
+		begin: GL_LINES;
+		color: self pen color;
+		vertex2: self pen pos;
+		vertex2: pos;
+		end.
+	self pen pos: pos.
+
+]
+
 { #category : #'instance creation' }
 GFGLCanvas >> open [
 	window := OSWindowAnimated createWithAttributes: (OSWindowAttributes new
@@ -46,8 +58,14 @@ GFGLCanvas >> open [
 		yourself).
 	renderer := window newOpenGLRenderer.
 	renderer createContext.
-	GFGL viewportX: 0 y: 0 w: self paper width value h: self paper height value.
-	GFGL clearColor: self paper color.
+	GFGL
+		viewportX: 0 y: 0 w: self paper width value h: self paper height value;
+		clearColor: self paper color;
+		matrixMode: GL_PROJECTION;
+		loadIdentity;
+		orthoL: 0 r: self paper width value b: self paper height value t: 0 n: -1 f: 1;
+		matrixMode: GL_MODELVIEW;
+		loadIdentity.
 	self initializeWithRenderer.
 	window eventHandler: self createEventHandler.
 
