@@ -29,11 +29,31 @@ GFMorphCanvas >> circle: radius [
 	^ circle.
 ]
 
+{ #category : #'initialize-release' }
+GFMorphCanvas >> close [
+	morph ifNil: [ ^ self ].
+	morph delete.
+	morph := nil.
+]
+
 { #category : #'path commands' }
 GFMorphCanvas >> drawLines: vertices [
 	|poly|
 	poly := PolygonMorph
 		vertices: vertices
+		color: self fillColor
+		borderWidth: self pen width value
+		borderColor: self pen color.
+	poly makeOpen.
+	self morph addMorph: poly.
+	^ poly
+]
+
+{ #category : #'as yet unclassified' }
+GFMorphCanvas >> drawSquare: vertices [
+	|poly|
+	poly := PolygonMorph
+		vertices: (vertices copyWith: vertices first)
 		color: self fillColor
 		borderWidth: self pen width value
 		borderColor: self pen color.

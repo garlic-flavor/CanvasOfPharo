@@ -1,6 +1,6 @@
 Class {
 	#name : #GFGLCanvas,
-	#superclass : #GFSDLCanvasBase,
+	#superclass : #GFNativeCanvasBase,
 	#pools : [
 		'GFGLConstants',
 		'SDL2Constants'

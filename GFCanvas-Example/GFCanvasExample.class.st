@@ -1,12 +1,30 @@
 Class {
 	#name : #GFCanvasExample,
 	#superclass : #Object,
+	#instVars : [
+		'canvas'
+	],
 	#category : #'GFCanvas-Example'
 }
 
 { #category : #'as yet unclassified' }
+GFCanvasExample >> chess_01 [
+	|square|
+	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
+		focalLength: 50;
+		from: (GFVector3 x: 2 y: -0 z: 50);
+		yourself.
+	canvas pen width: 1.
+	square := (GFChess new: 1 w: 4 h: 5)
+		local: (GFMatrix4x4 translateX: -10 y: -10 z: 0);
+		yourself.
+	canvas add: square.
+
+]
+
+{ #category : #'as yet unclassified' }
 GFCanvasExample >> circle_01 [
-	|canvas circle|
+	|circle|
 	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
 		focalLength: 50;
 		from: (GFVector3 x: 0 y: 0 z: 10);
@@ -23,7 +41,7 @@ GFCanvasExample >> circle_01 [
 
 { #category : #'as yet unclassified' }
 GFCanvasExample >> cube_01 [
-	|canvas cube|
+	|cube|
 	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
 		focalLength: 50;
 		from: (GFVector3 x: 5 y: 5 z: 10);
@@ -35,7 +53,7 @@ GFCanvasExample >> cube_01 [
 
 { #category : #'as yet unclassified' }
 GFCanvasExample >> grid_01 [
-	|canvas grid|
+	|grid|
 	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
 		focalLength: 50;
 		from: (GFVector3 x: 5 y: 5 z: 10);
@@ -47,7 +65,6 @@ GFCanvasExample >> grid_01 [
 
 { #category : #'as yet unclassified' }
 GFCanvasExample >> grid_02 [
-	|canvas|
 	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
 		focalLength: 50;
 		from: (GFVector3 x: 5 y: 5 z: 10);
@@ -57,7 +74,7 @@ GFCanvasExample >> grid_02 [
 
 { #category : #'as yet unclassified' }
 GFCanvasExample >> roomA_01 [
-	|canvas room|
+	|room|
 	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
 		focalLength: 50;
 		from: (GFVector3 x: 2 y: -0 z: 3);
@@ -71,13 +88,15 @@ GFCanvasExample >> roomA_01 [
 
 { #category : #'as yet unclassified' }
 GFCanvasExample >> square_01 [
-	|canvas square|
+	|square|
 	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
 		focalLength: 50;
-		from: (GFVector3 x: 2 y: -0 z: 3);
+		from: (GFVector3 x: 2 y: -0 z: 50);
 		yourself.
 	canvas pen width: 1.
-	square := GFPolygon3 square.
+	square := (GFSquare3 new: 1 x: 0 y: 0)
+		local: (GFMatrix4x4 translateX: -10 y: -10 z: 0);
+		yourself.
 	canvas add: square.
 
 ]

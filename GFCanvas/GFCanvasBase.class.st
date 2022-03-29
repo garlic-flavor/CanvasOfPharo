@@ -55,6 +55,19 @@ GFCanvasBase >> drawPolyline3: obj [
 	]
 ]
 
+{ #category : #accessing }
+GFCanvasBase >> drawSquare3: obj [
+	|v|
+	self world local: obj local.
+	v := obj vertices collect: [ :each | self world * each ].
+	self drawSquare: v
+]
+
+{ #category : #'as yet unclassified' }
+GFCanvasBase >> drawSquare: v [
+	^ self subclassResponsibility
+]
+
 { #category : #'as yet unclassified' }
 GFCanvasBase >> ellipse: radius flattening: flattening [
 	^ self subclassResponsibility 
