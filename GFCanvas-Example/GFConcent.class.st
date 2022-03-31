@@ -13,10 +13,11 @@ Class {
 { #category : #'instance creation' }
 GFConcent class >> new: paper center: center density: density hole: hole [
 	^ self new
-		canvas: (GFMorphCanvas new: paper);
+		canvas: (GFSDLStaticCanvas new: paper);
 		center: center;
 		density: density;
 		doughnutHoleRadius: hole;
+		ready;
 		yourself
 ]
 
@@ -67,6 +68,11 @@ GFConcent >> center: anObject [
 	center := anObject
 ]
 
+{ #category : #'initialize-release' }
+GFConcent >> close [
+	self canvas close.
+]
+
 { #category : #accessing }
 GFConcent >> density [
 
@@ -91,8 +97,18 @@ GFConcent >> doughnutHoleRadius: anObject [
 	doughnutHoleRadius := anObject
 ]
 
+{ #category : #accessing }
+GFConcent >> export [
+	self canvas export
+]
+
 { #category : #'instance creation' }
 GFConcent >> open [
+	self canvas open
+]
+
+{ #category : #'as yet unclassified' }
+GFConcent >> ready [
 	|rect radius|
 	rect := Rectangle origin: 0@0 corner: (self canvas paper width value)@(self canvas paper height value).
 	radius := (rect corners collect: [ :each | center distanceTo: each ]) max.
@@ -105,5 +121,5 @@ GFConcent >> open [
 		endAngle := angles max.
 		self addLinesFrom: startAngle to: endAngle radius: radius.
 	].
-	self canvas open
+
 ]

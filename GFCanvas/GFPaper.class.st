@@ -63,6 +63,14 @@ GFPaper class >> B5yoko [
 ]
 
 { #category : #'as yet unclassified' }
+GFPaper class >> HDyoko [
+	^ self new
+		width: 1920 px;
+		height: 1080 px;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
 GFPaper class >> VGAyoko [
 	^ self new
 		width: 640 px;
@@ -76,6 +84,11 @@ GFPaper class >> width: w height: h [
 		width: w;
 		height: h;
 		yourself
+]
+
+{ #category : #converting }
+GFPaper >> asRectangle [
+	^ Rectangle origin: 0@0 corner: width@height
 ]
 
 { #category : #accessing }
@@ -99,6 +112,11 @@ GFPaper >> dpi [
 GFPaper >> dpi: newDpi [
 	self height dpi: newDpi.
 	self width dpi: newDpi.
+]
+
+{ #category : #accessing }
+GFPaper >> extent [
+	^ width@height
 ]
 
 { #category : #accessing }

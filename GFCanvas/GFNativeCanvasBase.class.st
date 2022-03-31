@@ -33,7 +33,7 @@ GFNativeCanvasBase class >> createSurface: size [
 { #category : #adding }
 GFNativeCanvasBase >> add: item [
 	self items add: item.
-	self redrawAndPresent.
+
 ]
 
 { #category : #accessing }
