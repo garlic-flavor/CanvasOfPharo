@@ -74,6 +74,21 @@ GFCanvasExample >> close [
 ]
 
 { #category : #'as yet unclassified' }
+GFCanvasExample >> concent_01 [
+	|line|
+	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
+		focalLength: 50;
+		from: (GFVector3 x: 2 y: -0 z: 50);
+		yourself.
+	canvas pen width: 1.
+	line := GFLine2 start: 100@100 end: 3000@200.
+	line croppedBy: canvas morph bounds.
+	self halt.
+	canvas add: line.
+
+]
+
+{ #category : #'as yet unclassified' }
 GFCanvasExample >> cube_01 [
 	|cube|
 	canvas := (GFMorphCanvas open: GFPaper VGAyoko)

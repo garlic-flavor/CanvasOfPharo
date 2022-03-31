@@ -85,10 +85,13 @@ GFMorphCanvas >> export [
 
 { #category : #'path commands' }
 GFMorphCanvas >> lineTo: pos [
-	|line from to|
+	|line l from to|
 	from := self pen pos + self morph position.
 	to := pos + self morph position.
-	line := LineMorph from: from to: to color: pen color width: pen width value.
+	l := GFLine2 start: from end: to.
+	l croppedBy: self morph bounds.
+	l visible ifFalse: [ ^ self ].
+	line := LineMorph from: l start to: l end color: pen color width: pen width value.
 	self morph addMorph: line.
 	self pen pos: pos.
 	^ line
@@ -101,7 +104,7 @@ GFMorphCanvas >> morph [
 		morph := (Morph
 		newBounds: (Rectangle origin: 0@0 extent: (paper width value @ paper height value))
 		color: paper color)
-			clipSubmorphs: true;
+			clipSubmorphs: false;
 			yourself
 	]
 ]
