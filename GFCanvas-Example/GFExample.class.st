@@ -31,6 +31,20 @@ GFExample >> canvasClass [
 	^ GFMorphCanvas
 ]
 
+{ #category : #'initialize-release' }
+GFExample >> close [
+	canvas ifNil: [ ^ self ].
+	canvas close.
+	canvas := nil
+
+]
+
+{ #category : #'initialize-release' }
+GFExample >> export [
+	canvas ifNil: [ ^ self ].
+	canvas export.
+]
+
 { #category : #accessing }
 GFExample >> from [
 
