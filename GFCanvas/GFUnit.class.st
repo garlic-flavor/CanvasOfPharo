@@ -14,9 +14,16 @@ Class {
 	#category : #'GFCanvas-Base'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 GFUnit class >> cm: centimeter [
+	^ self cm: centimeter dpi: self defaultDPI
+
+]
+
+{ #category : #'instance creation' }
+GFUnit class >> cm: centimeter dpi: dpi [
 	^ self new
+		dpi: dpi;
 		cm: centimeter;
 		yourself
 ]
@@ -28,21 +35,42 @@ GFUnit class >> defaultDPI [
 
 { #category : #'instance creation' }
 GFUnit class >> in: inch [
+	^ self in: inch dpi: self defaultDPI
+
+]
+
+{ #category : #'instance creation' }
+GFUnit class >> in: inch dpi: dpi [
 	^ self new
+		dpi: dpi;
 		in: inch;
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 GFUnit class >> mm: millimeter [
+	^ self mm: millimeter dpi: self defaultDPI
+
+]
+
+{ #category : #'instance creation' }
+GFUnit class >> mm: millimeter dpi: dpi [
 	^ self new
+		dpi: dpi;
 		mm: millimeter;
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 GFUnit class >> px: px [
+	^ self px: px dpi: self defaultDPI
+
+]
+
+{ #category : #'instance creation' }
+GFUnit class >> px: px dpi: dpi [
 	^ self new
+		dpi: dpi;
 		px: px;
 		yourself
 ]
@@ -67,7 +95,7 @@ GFUnit >> cm: centimeter [
 { #category : #accessing }
 GFUnit >> dpi [
 
-	^ dpi ifNil: [ dpi := 300 ]
+	^ dpi ifNil: [ dpi := self class defaultDPI ]
 ]
 
 { #category : #accessing }

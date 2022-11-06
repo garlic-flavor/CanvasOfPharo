@@ -50,7 +50,7 @@ GFMorphCanvas >> drawLines: vertices [
 ]
 
 { #category : #'as yet unclassified' }
-GFMorphCanvas >> drawSquare: vertices [
+GFMorphCanvas >> drawPolygon: vertices [
 	|poly|
 	poly := PolygonMorph
 		vertices: (vertices copyWith: vertices first)

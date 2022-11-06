@@ -47,6 +47,11 @@ GFCanvasBase >> drawPolygon3: obj [
 ]
 
 { #category : #'canvas drawing' }
+GFCanvasBase >> drawPolygon: v [
+	^ self subclassResponsibility
+]
+
+{ #category : #'canvas drawing' }
 GFCanvasBase >> drawPolyline3: obj [
 	|v|
 	self world local: obj local.
@@ -63,12 +68,7 @@ GFCanvasBase >> drawSquare3: obj [
 	|v|
 	self world local: obj local.
 	v := obj vertices collect: [ :each | self world * each ].
-	self drawSquare: v
-]
-
-{ #category : #'canvas drawing' }
-GFCanvasBase >> drawSquare: v [
-	^ self subclassResponsibility
+	self drawPolygon: v
 ]
 
 { #category : #'canvas drawing' }
@@ -126,7 +126,7 @@ GFCanvasBase >> open [
 { #category : #accessing }
 GFCanvasBase >> paper [
 
-	^ paper
+	^ paper ifNil: [ paper := GFPaper VGAyoko ]
 ]
 
 { #category : #accessing }
