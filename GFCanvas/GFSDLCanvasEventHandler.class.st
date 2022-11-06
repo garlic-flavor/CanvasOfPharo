@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'canvas'
 	],
-	#category : #'GFCanvas-SDL'
+	#category : #'GFCanvas-Deprecated'
 }
 
 { #category : #accessing }

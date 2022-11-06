@@ -29,11 +29,31 @@ GFMorphCanvas >> circle: radius [
 	^ circle.
 ]
 
+{ #category : #'initialize-release' }
+GFMorphCanvas >> close [
+	morph ifNil: [ ^ self ].
+	morph delete.
+	morph := nil.
+]
+
 { #category : #'path commands' }
 GFMorphCanvas >> drawLines: vertices [
 	|poly|
 	poly := PolygonMorph
 		vertices: vertices
+		color: self fillColor
+		borderWidth: self pen width value
+		borderColor: self pen color.
+	poly makeOpen.
+	self morph addMorph: poly.
+	^ poly
+]
+
+{ #category : #'as yet unclassified' }
+GFMorphCanvas >> drawSquare: vertices [
+	|poly|
+	poly := PolygonMorph
+		vertices: (vertices copyWith: vertices first)
 		color: self fillColor
 		borderWidth: self pen width value
 		borderColor: self pen color.
@@ -65,10 +85,13 @@ GFMorphCanvas >> export [
 
 { #category : #'path commands' }
 GFMorphCanvas >> lineTo: pos [
-	|line from to|
+	|line l from to|
 	from := self pen pos + self morph position.
 	to := pos + self morph position.
-	line := LineMorph from: from to: to color: pen color width: pen width value.
+	l := GFLine2 start: from end: to.
+	l croppedBy: self paper asRectangle.
+	l visible ifFalse: [ ^ self ].
+	line := LineMorph from: l start to: l end color: pen color width: pen width value.
 	self morph addMorph: line.
 	self pen pos: pos.
 	^ line

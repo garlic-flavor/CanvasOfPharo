@@ -25,17 +25,20 @@ GFCanvasBase class >> open: paper [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : #'canvas drawing' }
 GFCanvasBase >> circle: radius [
 	^ self subclassResponsibility
 ]
 
-{ #category : #'path commands' }
+{ #category : #'canvas drawing' }
 GFCanvasBase >> drawLines: vertices [
-	^ self subclassResponsibility 
+	vertices ifEmpty: [ ^ self ].
+	self moveTo: vertices first.
+	vertices allButFirstDo: [ :one | self lineTo: one ].
+
 ]
 
-{ #category : #accessing }
+{ #category : #'canvas drawing' }
 GFCanvasBase >> drawPolygon3: obj [
 	|v|
 	self world local: obj local.
@@ -43,7 +46,7 @@ GFCanvasBase >> drawPolygon3: obj [
 	self drawLines: v
 ]
 
-{ #category : #accessing }
+{ #category : #'canvas drawing' }
 GFCanvasBase >> drawPolyline3: obj [
 	|v|
 	self world local: obj local.
@@ -55,12 +58,25 @@ GFCanvasBase >> drawPolyline3: obj [
 	]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'canvas drawing' }
+GFCanvasBase >> drawSquare3: obj [
+	|v|
+	self world local: obj local.
+	v := obj vertices collect: [ :each | self world * each ].
+	self drawSquare: v
+]
+
+{ #category : #'canvas drawing' }
+GFCanvasBase >> drawSquare: v [
+	^ self subclassResponsibility
+]
+
+{ #category : #'canvas drawing' }
 GFCanvasBase >> ellipse: radius flattening: flattening [
 	^ self subclassResponsibility 
 ]
 
-{ #category : #accessing }
+{ #category : #export }
 GFCanvasBase >> export [
 	^ self subclassResponsibility 
 ]
@@ -82,12 +98,17 @@ GFCanvasBase >> focalLength: f [
 	self world focalLength: f
 ]
 
-{ #category : #'instance creation' }
+{ #category : #accessing }
 GFCanvasBase >> from: pos [
 	self world from: pos
 ]
 
-{ #category : #'path commands' }
+{ #category : #accessing }
+GFCanvasBase >> from: pos to: to [
+	self world from: pos to: to
+]
+
+{ #category : #'canvas drawing' }
 GFCanvasBase >> lineTo: pos [
 	^ self subclassResponsibility 
 ]

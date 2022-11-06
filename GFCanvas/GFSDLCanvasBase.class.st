@@ -1,12 +1,7 @@
 Class {
 	#name : #GFSDLCanvasBase,
-	#superclass : #GFCanvasBase,
-	#instVars : [
-		'renderer',
-		'window',
-		'items'
-	],
-	#category : #'GFCanvas-SDL'
+	#superclass : #GFNativeCanvasBase,
+	#category : #'GFCanvas-Deprecated'
 }
 
 { #category : #'as yet unclassified' }
@@ -22,30 +17,12 @@ GFSDLCanvasBase class >> chooseFile [
 GFSDLCanvasBase class >> createSurface: size [
 	^ (SDL2 createRGBSurface: 0
 		width: size x height: size y depth: 24
-		rmask: 16r00ff0000
+		rmask: 16r000000ff
 		gmask: 16r0000ff00
-		bmask: 16r000000ff
+		bmask: 16r00ff0000
 		amask: 16r00000000)
 		autoRelease;
 		yourself
-]
-
-{ #category : #adding }
-GFSDLCanvasBase >> add: item [
-	self items add: item.
-	self redrawAndPresent.
-]
-
-{ #category : #accessing }
-GFSDLCanvasBase >> circle: radius [
-	|num step vert|
-	num := 20.
-	step := Float twoPi / (num - 1).
-	vert := OrderedCollection new: num.
-	1 to: num do: [ :i |
-		vert add: (radius * (i cos)) @ (radius * (i sin))
-	].
-	self drawLines: vert
 ]
 
 { #category : #drawing }
@@ -54,13 +31,6 @@ GFSDLCanvasBase >> clear [
 		color: self paper color;
 		clear
 
-]
-
-{ #category : #factory }
-GFSDLCanvasBase >> createEventHandler [
-	^ GFSDLCanvasEventHandler new
-		canvas: self;
-		yourself
 ]
 
 { #category : #'path commands' }
@@ -74,19 +44,6 @@ GFSDLCanvasBase >> drawLines: vertices [
 		renderer drawLine: prev end: curr.
 		prev := curr.
 	]
-
-]
-
-{ #category : #'as yet unclassified' }
-GFSDLCanvasBase >> ellipse: radius flattening: flattening [
-	|num step vert|
-	num := 20.
-	step := Float twoPi / (num - 1).
-	vert := OrderedCollection new: num.
-	1 to: num do: [ :i |
-		vert add: (radius * (i cos)) @ (radius * (i sin) * flattening)
-	].
-	self drawLines: vert
 
 ]
 
@@ -106,22 +63,6 @@ GFSDLCanvasBase >> export [
 
 ]
 
-{ #category : #initialization }
-GFSDLCanvasBase >> initializeWithRenderer [
-]
-
-{ #category : #accessing }
-GFSDLCanvasBase >> items [
-
-	^ items ifNil: [ items := OrderedCollection new ]
-]
-
-{ #category : #accessing }
-GFSDLCanvasBase >> items: anObject [
-
-	items := anObject
-]
-
 { #category : #'path commands' }
 GFSDLCanvasBase >> lineTo: pos [
 	renderer
@@ -130,36 +71,7 @@ GFSDLCanvasBase >> lineTo: pos [
 	self pen pos: pos
 ]
 
-{ #category : #'as yet unclassified' }
-GFSDLCanvasBase >> onDestroyEvent [
-]
-
-{ #category : #'as yet unclassified' }
-GFSDLCanvasBase >> onDrawEvent [
-	OSWindowRenderThread enqueueOperation: [
-		renderer ifNotNil: [ self redrawAndPresent ]
-	]
-]
-
-{ #category : #'as yet unclassified' }
-GFSDLCanvasBase >> onUpdateEvent: elapsed [
-]
-
 { #category : #rendering }
 GFSDLCanvasBase >> present [
 	renderer present
-]
-
-{ #category : #drawing }
-GFSDLCanvasBase >> redraw [
-	self clear.
-	self items do: [ :item | item drawOn: self ]
-
-]
-
-{ #category : #'instance creation' }
-GFSDLCanvasBase >> redrawAndPresent [
-	self
-		redraw;
-		present
 ]

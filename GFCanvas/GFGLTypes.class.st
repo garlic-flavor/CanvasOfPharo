@@ -22,9 +22,10 @@ Class {
 		'GLubyte',
 		'GLuint',
 		'GLuint64',
-		'GLushort'
+		'GLushort',
+		'GLvoid'
 	],
-	#category : #'GFCanvas-OpenGL-Bindings'
+	#category : #'GFCanvas-Deprecated'
 }
 
 { #category : #initialization }
@@ -41,14 +42,15 @@ GFGLTypes class >> initialize [
 	GLuint64 := #uint64.
 	GLsizei := #uint32.
 	GLenum := #int32.
-	GLintptr := #intptr_t. self flag: #fixme.
-	GLsizeiptr := #intptr_t. self flag: #fixme.
-	GLsync := #intptr_t. self flag: #fixme.
+	GLintptr := #intptr_t.
+	GLsizeiptr := #intptr_t.
+	GLsync := #intptr_t.
 	GLbitfield := #uint32.
 	GLhalf := #uint16.
-	GLfloat := #float.
-	GLclampf := #float.
-	GLdouble := #double.
-	GLclampf := #double.
+	GLfloat := #float32.
+	GLclampf := #float32.
+	GLdouble := #float64.
+	GLclampd := #float64.
+	GLvoid := #void.
 
 ]
