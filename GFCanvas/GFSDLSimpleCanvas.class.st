@@ -8,7 +8,7 @@ Class {
 	#pools : [
 		'SDL2Constants'
 	],
-	#category : #'GFCanvas-SDL'
+	#category : #'GFCanvas-Deprecated'
 }
 
 { #category : #'initialize-release' }

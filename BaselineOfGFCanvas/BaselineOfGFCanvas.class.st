@@ -28,5 +28,7 @@ BaselineOfGFCanvas >> projectClass [
 BaselineOfGFCanvas >> setUpDependencies: spec [
 	spec
 		baseline: 'GFMatrix'
-			with: [ spec repository: 'github://garlic-flavor/MatrixForPharo:master/repository' ]
+			with: [ spec repository: 'github://garlic-flavor/MatrixForPharo:master/repository' ];
+		baseline: 'XMLParser'
+			with: [ spec repository: 'github://pharo-contributions/XML-XMLParser/src' ]
 ]

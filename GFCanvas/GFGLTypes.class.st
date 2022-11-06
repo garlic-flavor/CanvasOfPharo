@@ -25,7 +25,7 @@ Class {
 		'GLushort',
 		'GLvoid'
 	],
-	#category : #'GFCanvas-OpenGL-Bindings'
+	#category : #'GFCanvas-Deprecated'
 }
 
 { #category : #initialization }

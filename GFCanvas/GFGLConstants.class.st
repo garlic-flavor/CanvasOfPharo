@@ -45,7 +45,7 @@ Class {
 		'GL_UNSIGNED_INT',
 		'GL_UNSIGNED_SHORT'
 	],
-	#category : #'GFCanvas-OpenGL-Bindings'
+	#category : #'GFCanvas-Deprecated'
 }
 
 { #category : #'as yet unclassified' }

@@ -5,7 +5,7 @@ Class {
 		'GFGLConstants',
 		'SDL2Constants'
 	],
-	#category : #'GFCanvas-OpenGL'
+	#category : #'GFCanvas-Deprecated'
 }
 
 { #category : #accessing }

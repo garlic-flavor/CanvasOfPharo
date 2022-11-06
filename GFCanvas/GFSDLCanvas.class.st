@@ -1,7 +1,7 @@
 Class {
 	#name : #GFSDLCanvas,
 	#superclass : #GFSDLCanvasBase,
-	#category : #'GFCanvas-SDL'
+	#category : #'GFCanvas-Deprecated'
 }
 
 { #category : #'instance creation' }

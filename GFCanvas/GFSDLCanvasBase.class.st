@@ -1,7 +1,7 @@
 Class {
 	#name : #GFSDLCanvasBase,
 	#superclass : #GFNativeCanvasBase,
-	#category : #'GFCanvas-SDL'
+	#category : #'GFCanvas-Deprecated'
 }
 
 { #category : #'as yet unclassified' }

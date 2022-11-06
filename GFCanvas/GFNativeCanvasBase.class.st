@@ -6,7 +6,7 @@ Class {
 		'window',
 		'items'
 	],
-	#category : #'GFCanvas-SDL'
+	#category : #'GFCanvas-Deprecated'
 }
 
 { #category : #'as yet unclassified' }

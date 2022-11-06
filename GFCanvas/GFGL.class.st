@@ -5,7 +5,7 @@ Class {
 		'GFGLConstants',
 		'GFGLTypes'
 	],
-	#category : #'GFCanvas-OpenGL-Bindings'
+	#category : #'GFCanvas-Deprecated'
 }
 
 { #category : #'as yet unclassified' }
