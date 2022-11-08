@@ -1,24 +1,40 @@
 Class {
 	#name : #GFCanvasExample,
-	#superclass : #Object,
-	#instVars : [
-		'canvas'
-	],
+	#superclass : #GFCanvasExampleBase,
 	#category : #'GFCanvas-Example'
 }
 
 { #category : #'as yet unclassified' }
-GFCanvasExample >> chess_01 [
+GFCanvasExample >> _0001_line [
+	self canvas
+		moveTo: (1 cm)@(1 cm);
+		lineTo: (15 cm) @ (10 cm);
+		open
+]
+
+{ #category : #'as yet unclassified' }
+GFCanvasExample >> _0002_chess [
 	|square|
-	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
-		focalLength: 50;
-		from: (GFVector3 x: 2 y: -0 z: 50);
-		yourself.
-	canvas pen width: 1.
 	square := (GFChess new: 1 w: 4 h: 5)
 		local: (GFMatrix4x4 translateX: -10 y: -10 z: 0);
 		yourself.
-	canvas add: square.
+	self canvas
+		focalLength: 50;
+		from: (GFVector3 x: 2 y: -0 z: 50);
+		add: square;
+		open
+
+]
+
+{ #category : #'as yet unclassified' }
+GFCanvasExample >> _0003_cube [
+	|cube|
+	cube := GFPolyline3 cube.
+	self canvas
+		focalLength: 50;
+		from: (GFVector3 x: 5 y: 5 z: 10);
+		add: cube;
+		open
 
 ]
 
@@ -66,13 +82,6 @@ GFCanvasExample >> circle_01 [
 	]
 ]
 
-{ #category : #'initialize-release' }
-GFCanvasExample >> close [
-	canvas ifNil: [ ^ self ].
-	canvas close.
-	canvas := nil.
-]
-
 { #category : #'as yet unclassified' }
 GFCanvasExample >> concent_01 [
 	|line|
@@ -81,18 +90,6 @@ GFCanvasExample >> concent_01 [
 	line := GFLine2 start: -100@100 end: 3000@200.
 	line croppedBy: canvas morph bounds.
 	canvas add: line.
-
-]
-
-{ #category : #'as yet unclassified' }
-GFCanvasExample >> cube_01 [
-	|cube|
-	canvas := (GFMorphCanvas open: GFPaper VGAyoko)
-		focalLength: 50;
-		from: (GFVector3 x: 5 y: 5 z: 10);
-		yourself.
-	cube := GFPolyline3 cube.
-	canvas add: cube.
 
 ]
 

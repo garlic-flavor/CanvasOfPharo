@@ -4,6 +4,6 @@ Extension { #name : #GFChess }
 GFChess >> drawOn: canvas [
 	self squares do: [ :square |
 		self vertices: square.
-		canvas drawSquare3: self
+		canvas drawPolygon3: self
 	]
 ]

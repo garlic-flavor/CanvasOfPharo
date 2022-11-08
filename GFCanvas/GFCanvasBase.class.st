@@ -25,9 +25,18 @@ GFCanvasBase class >> open: paper [
 		yourself
 ]
 
+{ #category : #adding }
+GFCanvasBase >> add: anObject [
+	anObject drawOn: self
+]
+
 { #category : #'canvas drawing' }
 GFCanvasBase >> circle: radius [
 	^ self subclassResponsibility
+]
+
+{ #category : #'initialize-release' }
+GFCanvasBase >> close [
 ]
 
 { #category : #'canvas drawing' }
@@ -43,7 +52,7 @@ GFCanvasBase >> drawPolygon3: obj [
 	|v|
 	self world local: obj local.
 	v := obj vertices collect: [ :each | self world * each ].
-	self drawLines: v
+	self drawPolygon: v
 ]
 
 { #category : #'canvas drawing' }
@@ -61,14 +70,6 @@ GFCanvasBase >> drawPolyline3: obj [
 			moveTo: (v at: one);
 			lineTo: (v at: two)
 	]
-]
-
-{ #category : #'canvas drawing' }
-GFCanvasBase >> drawSquare3: obj [
-	|v|
-	self world local: obj local.
-	v := obj vertices collect: [ :each | self world * each ].
-	self drawPolygon: v
 ]
 
 { #category : #'canvas drawing' }
@@ -118,7 +119,7 @@ GFCanvasBase >> moveTo: pos [
 	self pen pos: pos
 ]
 
-{ #category : #'instance creation' }
+{ #category : #'initialize-release' }
 GFCanvasBase >> open [
 	^ self subclassResponsibility 
 ]

@@ -104,19 +104,8 @@ GFPaper >> color: anObject [
 ]
 
 { #category : #accessing }
-GFPaper >> dpi [
-	^ self height dpi
-]
-
-{ #category : #accessing }
-GFPaper >> dpi: newDpi [
-	self height dpi: newDpi.
-	self width dpi: newDpi.
-]
-
-{ #category : #accessing }
 GFPaper >> extent [
-	^ width@height
+	^ (self width)@(self height)
 ]
 
 { #category : #accessing }
@@ -128,7 +117,7 @@ GFPaper >> height [
 { #category : #accessing }
 GFPaper >> height: anObject [
 
-	height := anObject
+	self height px: anObject value
 ]
 
 { #category : #accessing }
@@ -140,5 +129,6 @@ GFPaper >> width [
 { #category : #accessing }
 GFPaper >> width: anObject [
 
-	width := anObject
+	self width px: anObject value
+
 ]
