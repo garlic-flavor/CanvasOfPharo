@@ -50,7 +50,8 @@ GFCanvasExampleBase class >> test: no [
 		(val selector beginsWith: header) ifTrue: [
 			^ val valueWithReceiver: self new arguments: {  }.
 		]
-	]
+	].
+	self halt.
 ]
 
 { #category : #accessing }

@@ -151,6 +151,11 @@ GFCanvasBase >> pen: anObject [
 	pen := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+GFCanvasBase >> penWidth: w [
+	self pen width: w
+]
+
 { #category : #accessing }
 GFCanvasBase >> world [
 
@@ -161,4 +166,7 @@ GFCanvasBase >> world [
 GFCanvasBase >> world: anObject [
 
 	world := anObject
+		width: self paper width value;
+		height: self paper height value;
+		yourself
 ]
