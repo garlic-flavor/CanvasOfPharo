@@ -127,9 +127,9 @@ GFSVGCanvas >> exportUsing: aFileRef [
 		enablePlatformSpecificLineBreak;
 		xml;
 		tag: 'svg' attributes: {
-			'width' -> (self paper width inMm asString, 'mm').
-			'height' -> (self paper height inMm asString, 'mm').
-			'viewBox' -> ('0 0 ', self paper width value asString, ' ', self paper height value asString).
+			'width' -> ((GFUnit toMm: self paper width) asString, 'mm').
+			'height' -> ((GFUnit toMm: self paper height) asString, 'mm').
+			'viewBox' -> ('0 0 ', self paper width asString, ' ', self paper height asString).
 			'xmlns' -> 'http://www.w3.org/2000/svg'.
 			'version' -> '1.1'
 		} with: [ :svg |

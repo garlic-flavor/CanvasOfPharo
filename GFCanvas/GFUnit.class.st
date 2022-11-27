@@ -4,22 +4,11 @@ GFUnit convert unit length.
 Class {
 	#name : #GFUnit,
 	#superclass : #Object,
-	#instVars : [
-		'pixel'
-	],
 	#classInstVars : [
 		'dpi'
 	],
 	#category : #'GFCanvas-Base'
 }
-
-{ #category : #'instance creation' }
-GFUnit class >> cm: centimeter [
-	^ self new
-		cm: centimeter;
-		yourself
-
-]
 
 { #category : #accessing }
 GFUnit class >> dpi [
@@ -29,33 +18,26 @@ GFUnit class >> dpi [
 { #category : #accessing }
 GFUnit class >> dpi: newDpi [
 
-	self allInstancesDo: [ :one | one px: one value * newDpi / self dpi ].
 	dpi := newDpi
 
 ]
 
-{ #category : #'instance creation' }
-GFUnit class >> inch: inch [
-	^ self new
-		inch: inch;
-		yourself
+{ #category : #'as yet unclassified' }
+GFUnit class >> fromCm: centimeter [
 
+	^ centimeter * self dpi / 2.54
 ]
 
 { #category : #'instance creation' }
-GFUnit class >> mm: millimeter [
-	^ self new
-		mm: millimeter;
-		yourself
+GFUnit class >> fromInch: inch [
 
+	^ inch * self dpi
 ]
 
-{ #category : #'instance creation' }
-GFUnit class >> px: px [
-	^ self new
-		px: px;
-		yourself
+{ #category : #'as yet unclassified' }
+GFUnit class >> fromMm: millimeter [
 
+	^ millimeter * self dpi / 25.4
 ]
 
 { #category : #accessing }
@@ -64,63 +46,21 @@ GFUnit class >> resetDefaultDPI [
 	dpi := nil
 ]
 
-{ #category : #operations }
-GFUnit >> @ y [
-	^ Point x: self value y: y value
-]
-
 { #category : #'as yet unclassified' }
-GFUnit >> cm: centimeter [
-	self px: centimeter * self class dpi / 2.54
-	
-]
+GFUnit class >> toCm: pixel [
 
-{ #category : #'as yet unclassified' }
-GFUnit >> inCm [
-	^ self inMm * 0.1
-	
+	^ pixel * 2.54 / self dpi
 ]
 
 { #category : #'instance creation' }
-GFUnit >> inInch [
-	^ pixel / self class dpi
+GFUnit class >> toInch: pixel [
+
+	^ pixel / self dpi
 ]
 
 { #category : #'as yet unclassified' }
-GFUnit >> inMm [
-	^ (pixel * 25.4 / self class dpi) asInteger
-	
-]
+GFUnit class >> toMm: pixel [
 
-{ #category : #'instance creation' }
-GFUnit >> inch: inch [
-	self px: inch * self class dpi
-]
+	^ pixel * 25.4 / self dpi
 
-{ #category : #'as yet unclassified' }
-GFUnit >> mm: millimeter [
-	self px: millimeter * self class dpi / 25.4
-	
-]
-
-{ #category : #accessing }
-GFUnit >> pixel [
-	^ pixel
-]
-
-{ #category : #accessing }
-GFUnit >> pixel: anObject [
-
-	^ pixel := anObject
-]
-
-{ #category : #accessing }
-GFUnit >> px: anObject [
-
-	pixel := anObject asInteger
-]
-
-{ #category : #accessing }
-GFUnit >> value [
-	^ pixel
 ]

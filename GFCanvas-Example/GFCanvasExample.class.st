@@ -125,3 +125,12 @@ GFCanvasExample >> _0008_square [
 		open
 
 ]
+
+{ #category : #'as yet unclassified' }
+GFCanvasExample >> _0009_concent [
+	|line|
+	line := GFPolyline2 concentAt: (5 cm)@(5 cm) density: 100 hole: 2 cm radius: 50 cm.
+	self canvas
+		add: line;
+		open.
+]

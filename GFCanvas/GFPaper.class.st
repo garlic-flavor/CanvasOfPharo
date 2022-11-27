@@ -111,24 +111,24 @@ GFPaper >> extent [
 { #category : #accessing }
 GFPaper >> height [
 
-	^ height ifNil: [ height := GFUnit new ]
+	^ height ifNil: [ height := 480 ]
 ]
 
 { #category : #accessing }
 GFPaper >> height: anObject [
 
-	self height px: anObject value
+	height := anObject
 ]
 
 { #category : #accessing }
 GFPaper >> width [
 
-	^ width ifNil: [ width := GFUnit new ]
+	^ width ifNil: [ width := 640 ]
 ]
 
 { #category : #accessing }
 GFPaper >> width: anObject [
 
-	self width px: anObject value
+	width := anObject
 
 ]
