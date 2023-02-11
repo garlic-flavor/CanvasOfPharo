@@ -151,7 +151,7 @@ GFCanvasBase >> pen: anObject [
 	pen := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 GFCanvasBase >> penWidth: w [
 	self pen width: w
 ]
