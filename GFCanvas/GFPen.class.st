@@ -39,7 +39,7 @@ GFPen >> pos: anObject [
 { #category : #accessing }
 GFPen >> width [
 
-	^ width ifNil: [ width := GFUnit px: 1 ]
+	^ width ifNil: [ width := 1 ]
 ]
 
 { #category : #accessing }

@@ -6,42 +6,107 @@ Class {
 		'height',
 		'nodes'
 	],
-	#category : #GFCanvas
+	#category : #'GFCanvas-SVG'
 }
 
-{ #category : #'canvas drawing' }
-GFSVGCanvas >> drawLines: vertices [
-	|d first w color|
-	vertices ifEmpty: [ ^ self ].
+{ #category : #utilities }
+GFSVGCanvas class >> makeDfrom: v close: closing [
+	|d first|
 	d := String new writeStream.
-	first := vertices first.
+	first := v first.
 	d
 		<< 'M ';
 		<< first x value asInteger asString;
 		<< ' ';
 		<< first y value asInteger asString.
-	vertices allButFirstDo: [ :v |
+	v allButFirstDo: [ :one |
 		d
 			<< ' L ';
-			<< v x value asInteger asString;
+			<< one x value asInteger asString;
 			<< ' ';
-			<< v y value asInteger asString
+			<< one y value asInteger asString
 	].
+	closing ifTrue: [	d << ' z' ].
+	^ d contents
+]
+
+{ #category : #'canvas drawing' }
+GFSVGCanvas >> circle: radius [
+	|x y w color fill|
+	x := self pen pos x value asInteger asString.
+	y := self pen pos y value asInteger asString.
 	w := self pen width value asInteger asString.
 	color := self pen color name asString.
-	self nodes add: [ :svg|
-		svg tag: 'path' attributes: { 
-			'd'	 -> d contents.
+	fill := self fillColor name asString.
+	fill == 'transparent' ifTrue: [ fill := 'none' ].
+	self nodes add: [ :svg |
+		svg tag: 'circle' attributes: {
+			'cx' -> x.
+			'cy' -> y.
+			'r' -> radius value asString.
+			'fill' -> fill.
 			'stroke' -> color.
-			'stroke-width' -> w.
-			'fill' -> 'none'
-		}.
+			'stroke-width' -> w
+		}
 	]
 ]
 
 { #category : #'canvas drawing' }
-GFSVGCanvas >> drawSquare: v [
+GFSVGCanvas >> drawLines: vertices [
+	|w color|
+	vertices ifEmpty: [ ^ self ].
+	w := self pen width value asInteger asString.
+	color := self pen color name asString.
+	self nodes add: [ :svg|
+		svg tag: 'path' attributes: { 
+			'd'	 -> (self class makeDfrom: vertices close: false).
+			'stroke' -> color.
+			'stroke-width' -> w.
+			'fill' -> 'none'
+		}.
+	].
+	self pen pos: vertices last
+]
 
+{ #category : #'canvas drawing' }
+GFSVGCanvas >> drawPolygon: v [
+	|w color fill|
+	v ifEmpty: [ ^ self ].
+	w := self pen width value asInteger asString.
+	color := self pen color name asString.
+	fill := self fillColor name asString.
+	fill == 'transparent' ifTrue: [ fill := 'none' ].
+	self nodes add: [ :svg|
+		svg tag: 'path' attributes: { 
+			'd'	 -> (self class makeDfrom: v close: true).
+			'stroke' -> color.
+			'stroke-width' -> w.
+			'fill' -> fill
+		}.
+	].
+	self pen pos: v last
+]
+
+{ #category : #'canvas drawing' }
+GFSVGCanvas >> ellipse: radius flattening: flattening [
+	|x y w color fill|
+	x := self pen pos x value asInteger asString.
+	y := self pen pos y value asInteger asString.
+	w := self pen width value asInteger asString.
+	color := self pen color name asString.
+	fill := self fillColor name asString.
+	fill == 'transparent' ifTrue: [ fill := 'none' ].
+	self nodes add: [ :svg |
+		svg tag: 'ellipse' attributes: {
+			'cx' -> x.
+			'cy' -> y.
+			'rx' -> radius value asInteger asString.
+			'ry' -> (radius value * flattening) asInteger asString.
+			'stroke-width' -> w.
+			'stroke' -> color.
+			'fill' -> fill
+		}
+	]
 ]
 
 { #category : #export }
@@ -62,9 +127,9 @@ GFSVGCanvas >> exportUsing: aFileRef [
 		enablePlatformSpecificLineBreak;
 		xml;
 		tag: 'svg' attributes: {
-			'width' -> (self width inMm asString, 'mm').
-			'height' -> (self height inMm asString, 'mm').
-			'viewBox' -> ('0 0 ', self width value asString, ' ', self height value asString).
+			'width' -> ((GFUnit toMm: self paper width) asString, 'mm').
+			'height' -> ((GFUnit toMm: self paper height) asString, 'mm').
+			'viewBox' -> ('0 0 ', self paper width asString, ' ', self paper height asString).
 			'xmlns' -> 'http://www.w3.org/2000/svg'.
 			'version' -> '1.1'
 		} with: [ :svg |
@@ -73,18 +138,6 @@ GFSVGCanvas >> exportUsing: aFileRef [
 		yourself.
 	aFileRef writeStreamDo: [ :s | w printOn: s ].
 
-]
-
-{ #category : #accessing }
-GFSVGCanvas >> height [
-
-	^ height ifNil: [ height := 297 mm ]
-]
-
-{ #category : #accessing }
-GFSVGCanvas >> height: anObject [
-
-	height := anObject
 ]
 
 { #category : #'canvas drawing' }
@@ -120,14 +173,7 @@ GFSVGCanvas >> nodes: anObject [
 	nodes := anObject
 ]
 
-{ #category : #accessing }
-GFSVGCanvas >> width [
-
-	^ width ifNil: [ width := 210 mm ]
-]
-
-{ #category : #accessing }
-GFSVGCanvas >> width: anObject [
-
-	width := anObject
+{ #category : #'instance creation' }
+GFSVGCanvas >> open [
+	^ self export
 ]

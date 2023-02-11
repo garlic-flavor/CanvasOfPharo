@@ -1,6 +1,6 @@
 Class {
 	#name : #GFGLCanvasExample,
-	#superclass : #GFGLCanvas,
+	#superclass : #AnObsoleteGFGLCanvas,
 	#instVars : [
 		'angle'
 	],

@@ -4,114 +4,80 @@ GFUnit convert unit length.
 Class {
 	#name : #GFUnit,
 	#superclass : #Object,
-	#instVars : [
-		'dpi',
-		'pixel'
-	],
 	#classInstVars : [
-		'defaultDPI'
+		'dpi',
+		'prec'
 	],
 	#category : #'GFCanvas-Base'
 }
 
-{ #category : #'as yet unclassified' }
-GFUnit class >> cm: centimeter [
-	^ self new
-		cm: centimeter;
-		yourself
-]
-
 { #category : #accessing }
-GFUnit class >> defaultDPI [
-	^ defaultDPI ifNil: [ defaultDPI := 300 ]
-]
-
-{ #category : #'instance creation' }
-GFUnit class >> in: inch [
-	^ self new
-		in: inch;
-		yourself
-]
-
-{ #category : #'as yet unclassified' }
-GFUnit class >> mm: millimeter [
-	^ self new
-		mm: millimeter;
-		yourself
-]
-
-{ #category : #'as yet unclassified' }
-GFUnit class >> px: px [
-	^ self new
-		px: px;
-		yourself
-]
-
-{ #category : #accessing }
-GFUnit class >> resetDefaultDPI [
-	<script>
-	defaultDPI := nil
-]
-
-{ #category : #operations }
-GFUnit >> @ y [
-	^ Point x: self value y: y value
-]
-
-{ #category : #'as yet unclassified' }
-GFUnit >> cm: centimeter [
-	self px: centimeter * self dpi / 2.54
-	
-]
-
-{ #category : #accessing }
-GFUnit >> dpi [
-
+GFUnit class >> dpi [
 	^ dpi ifNil: [ dpi := 300 ]
 ]
 
 { #category : #accessing }
-GFUnit >> dpi: anObject [
+GFUnit class >> dpi: newDpi [
 
-	pixel ifNotNil: [ pixel := pixel * anObject / dpi ].
-	dpi := anObject
+	dpi := newDpi
+
+]
+
+{ #category : #'as yet unclassified' }
+GFUnit class >> fromCm: centimeter [
+
+	^ (centimeter * self dpi / 2.54) rounded
 ]
 
 { #category : #'instance creation' }
-GFUnit >> in: inch [
-	self px: inch * self dpi
+GFUnit class >> fromInch: inch [
+
+	^ (inch * self dpi) rounded
 ]
 
 { #category : #'as yet unclassified' }
-GFUnit >> inCm [
-	^ self inMm * 0.1
-	
+GFUnit class >> fromMm: millimeter [
+
+	^ (millimeter * self dpi / 25.4) rounded
+]
+
+{ #category : #accessing }
+GFUnit class >> prec [
+	^ prec ifNil: [ prec := 1 ]
+]
+
+{ #category : #accessing }
+GFUnit class >> prec: newPrecision [
+	prec := newPrecision
+]
+
+{ #category : #accessing }
+GFUnit class >> resetDPI [
+	<script>
+	dpi := nil
+]
+
+{ #category : #initialization }
+GFUnit class >> resetPrecision [
+	<script>
+	prec := nil
+]
+
+{ #category : #'as yet unclassified' }
+GFUnit class >> toCm: pixel [
+
+	^ (pixel * 2.54 / self dpi * self prec) rounded / self prec
 ]
 
 { #category : #'instance creation' }
-GFUnit >> inInch [
-	^ pixel / self dpi
+GFUnit class >> toInch: pixel [
+
+	^ (pixel / self dpi * self prec) rounded / self prec
 ]
 
 { #category : #'as yet unclassified' }
-GFUnit >> inMm [
-	^ (pixel * 25.4 / self dpi) asInteger
-	
-]
+GFUnit class >> toMm: pixel [
 
-{ #category : #'as yet unclassified' }
-GFUnit >> mm: millimeter [
-	self px: millimeter * self dpi / 25.4
-	
-]
+	^ (pixel * 25.4 / self dpi * self prec) rounded / self prec
 
-{ #category : #accessing }
-GFUnit >> px: anObject [
-
-	pixel := anObject asInteger
-]
-
-{ #category : #accessing }
-GFUnit >> value [
-	^ pixel
 ]

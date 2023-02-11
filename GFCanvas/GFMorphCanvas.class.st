@@ -10,11 +10,6 @@ Class {
 	#category : #'GFCanvas-Morph'
 }
 
-{ #category : #adding }
-GFMorphCanvas >> add: anObject [
-	anObject drawOn: self
-]
-
 { #category : #accessing }
 GFMorphCanvas >> circle: radius [
 	|circle|
@@ -49,8 +44,8 @@ GFMorphCanvas >> drawLines: vertices [
 	^ poly
 ]
 
-{ #category : #'as yet unclassified' }
-GFMorphCanvas >> drawSquare: vertices [
+{ #category : #'canvas drawing' }
+GFMorphCanvas >> drawPolygon: vertices [
 	|poly|
 	poly := PolygonMorph
 		vertices: (vertices copyWith: vertices first)
@@ -62,7 +57,7 @@ GFMorphCanvas >> drawSquare: vertices [
 	^ poly
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'canvas drawing' }
 GFMorphCanvas >> ellipse: radius flattening: flattening [
 	|rW rH ellipse|
 	rW := radius value.
@@ -115,18 +110,18 @@ GFMorphCanvas >> morph: anObject [
 	morph := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'initialize-release' }
 GFMorphCanvas >> open [
 	self morph openInWorld
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'scaling, rotation' }
 GFMorphCanvas >> rotate: aMorph deglee: angle [
 	aMorph transformedBy: (self rotationMatrix: angle)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'scaling, rotation' }
 GFMorphCanvas >> rotationMatrix: angle [
 	|rad t1 t2 t3|
 	rad := angle * Float pi / 180.

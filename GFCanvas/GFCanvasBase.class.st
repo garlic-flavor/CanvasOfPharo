@@ -25,9 +25,18 @@ GFCanvasBase class >> open: paper [
 		yourself
 ]
 
+{ #category : #adding }
+GFCanvasBase >> add: anObject [
+	anObject drawOn: self
+]
+
 { #category : #'canvas drawing' }
 GFCanvasBase >> circle: radius [
 	^ self subclassResponsibility
+]
+
+{ #category : #'initialize-release' }
+GFCanvasBase >> close [
 ]
 
 { #category : #'canvas drawing' }
@@ -43,7 +52,12 @@ GFCanvasBase >> drawPolygon3: obj [
 	|v|
 	self world local: obj local.
 	v := obj vertices collect: [ :each | self world * each ].
-	self drawLines: v
+	self drawPolygon: v
+]
+
+{ #category : #'canvas drawing' }
+GFCanvasBase >> drawPolygon: v [
+	^ self subclassResponsibility
 ]
 
 { #category : #'canvas drawing' }
@@ -56,19 +70,6 @@ GFCanvasBase >> drawPolyline3: obj [
 			moveTo: (v at: one);
 			lineTo: (v at: two)
 	]
-]
-
-{ #category : #'canvas drawing' }
-GFCanvasBase >> drawSquare3: obj [
-	|v|
-	self world local: obj local.
-	v := obj vertices collect: [ :each | self world * each ].
-	self drawSquare: v
-]
-
-{ #category : #'canvas drawing' }
-GFCanvasBase >> drawSquare: v [
-	^ self subclassResponsibility
 ]
 
 { #category : #'canvas drawing' }
@@ -118,7 +119,7 @@ GFCanvasBase >> moveTo: pos [
 	self pen pos: pos
 ]
 
-{ #category : #'instance creation' }
+{ #category : #'initialize-release' }
 GFCanvasBase >> open [
 	^ self subclassResponsibility 
 ]
@@ -126,7 +127,7 @@ GFCanvasBase >> open [
 { #category : #accessing }
 GFCanvasBase >> paper [
 
-	^ paper
+	^ paper ifNil: [ paper := GFPaper VGAyoko ]
 ]
 
 { #category : #accessing }
@@ -151,6 +152,11 @@ GFCanvasBase >> pen: anObject [
 ]
 
 { #category : #accessing }
+GFCanvasBase >> penWidth: w [
+	self pen width: w
+]
+
+{ #category : #accessing }
 GFCanvasBase >> world [
 
 	^ world ifNil: [ world := GFCamera new ]
@@ -160,4 +166,7 @@ GFCanvasBase >> world [
 GFCanvasBase >> world: anObject [
 
 	world := anObject
+		width: self paper width value;
+		height: self paper height value;
+		yourself
 ]

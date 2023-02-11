@@ -8,7 +8,7 @@ Class {
 		'depth',
 		'local'
 	],
-	#category : #'GFCanvas-Models'
+	#category : #'GFCanvas-Deprecated'
 }
 
 { #category : #'as yet unclassified' }

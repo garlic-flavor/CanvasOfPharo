@@ -2,20 +2,20 @@ Extension { #name : #Number }
 
 { #category : #'*GFCanvas' }
 Number >> cm [
-	^ GFUnit cm: self
+	^ GFUnit fromCm: self
 ]
 
 { #category : #'*GFCanvas' }
 Number >> in [
-	^ GFUnit in: self
+	^ GFUnit fromInch: self
 ]
 
 { #category : #'*GFCanvas' }
 Number >> mm [
-	^ GFUnit mm: self
+	^ GFUnit fromMm: self
 ]
 
 { #category : #'*GFCanvas' }
 Number >> px [
-	^ GFUnit px: self
+	^ self
 ]
